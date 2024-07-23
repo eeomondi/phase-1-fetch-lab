@@ -1,4 +1,4 @@
-// index.js
+
 async function fetchBooks() {
   try {
     const response = await window.fetch('https://anapioficeandfire.com/api/books');
