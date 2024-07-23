@@ -1,20 +1,28 @@
+// index.js
+
 async function fetchBooks() {
   try {
-    const response = await window.fetch('https://anapioficeandfire.com/api/books');
+    const response = await fetch('https://anapioficeandfire.com/api/books');
+    if (!response.ok) {
+      throw new Error('Failed to fetch books');
+    }
     const books = await response.json();
     renderBooks(books);
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching books:', error.message);
   }
 }
 
 function renderBooks(books) {
-  const mainElement = window.document.querySelector('main');
-  books.forEach((book) => {
-    const bookTitleElement = window.document.createElement('h2');
-    bookTitleElement.textContent = book.name;
-    mainElement.appendChild(bookTitleElement);
+  // Example implementation to render books in the DOM
+  books.forEach(book => {
+    const titleElement = document.createElement('div');
+    titleElement.textContent = book.name;
+    document.body.appendChild(titleElement);
   });
 }
 
-export { fetchBooks, renderBooks };
+module.exports = {
+  fetchBooks,
+  renderBooks
+};
