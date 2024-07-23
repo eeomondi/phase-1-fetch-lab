@@ -1,17 +1,28 @@
-function fetchBooks() {
-  // To pass the tests, don't forget to return your fetch!
-  
-}
+const fetch = require('node-fetch');
+const sinon = require('sinon');
+const chai = require('chai');
+const spies = require('chai-spies');
 
-function renderBooks(books) {
-  const main = document.querySelector('main');
-  books.forEach(book => {
-    const h2 = document.createElement('h2');
-    h2.innerHTML = book.name;
-    main.appendChild(h2);
+chai.use(spies);
+
+describe('index.js', () => {
+  describe('fetchBooks()', () => {
+    beforeEach(() => {
+      window.document.body.innerHTML = '<main></main>';
+      const fetchStub = sinon.stub(window, 'fetch').resolves({ json: () => [{ title: 'Book 1' }] });
+      fetchBooks();
+    });
+
+    afterEach(() => {
+      window.fetch.restore();
+    });
+
+    it("sends a fetch request to 'https://anapioficeandfire.com/api/books'", () => {
+      expect(window.fetch).to.have.been.calledWith('https://anapioficeandfire.com/api/books');
+    });
+
+    it("renders book titles into the DOM by passing a JSON object to renderBooks()", () => {
+      expect(renderBooks).to.have.been.called();
+    });
   });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  fetchBooks();
 });
