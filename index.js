@@ -1,36 +1,20 @@
+// index.js
 function fetchBooks() {
-  // Perform a fetch request to the Game of Thrones API
-  return fetch('https://www.anapioficeandfire.com/api/books')
-    .then(response => {
-      // Check if the fetch request was successful
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      // Convert the response to JSON format
-      return response.json();
-    })
-    .then(data => {
-      // Call renderBooks function with the JSON data
-      renderBooks(data);
-    })
-    .catch(error => {
-      // Handle any errors that occur during the fetch request
-      console.error('There was a problem with the fetch operation:', error);
-    });
+  return fetch('https://anapioficeandfire.com/api/books')
+    .then(response => response.json())
+    .then(data => renderBooks(data));
 }
 
-function renderBooks(books) {
-  // Assuming renderBooks() will render the titles of the books to the HTML
-  // For example, assuming there is an HTML element with id 'bookList'
-  const bookListElement = document.getElementById('bookList');
-  books.forEach(book => {
-    const li = document.createElement('li');
-    li.textContent = book.name; // Assuming 'name' is the property for book title
-    bookListElement.appendChild(li);
+function renderBooks(data) {
+  // This function is not implemented in the lab, but it should render the book titles into the DOM
+  // For example:
+  const mainElement = document.querySelector('main');
+  data.forEach(book => {
+    const bookTitle = document.createElement('h2');
+    bookTitle.textContent = book.name;
+    mainElement.appendChild(bookTitle);
   });
 }
 
-// Call fetchBooks() when the page is loaded
-document.addEventListener('DOMContentLoaded', function () {
-  fetchBooks();
-});
+const index = require('../index');
+const index = require('./index');
