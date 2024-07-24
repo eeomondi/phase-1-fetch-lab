@@ -1,4 +1,5 @@
 // index.js
+const { fetchBooks, renderBooks } = require('./index');
 
 const fetchBooks = async () => {
   try {
